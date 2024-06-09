@@ -1,0 +1,47 @@
+<kendo-grid
+  [kendoGridBinding]="data"
+  [pageSize]="6"
+  [pageable]="true"
+  [sortable]="true"
+  [filterable]="true"
+  (add)="addHandler($event)"
+  (edit)="editHandler($event)"
+  (remove)="removeHandler($event)"
+  (save)="saveHandler($event)"
+  (cancel)="cancelHandler($event)"
+>
+  <ng-template kendoGridToolbarTemplate>
+    <button kendoGridAddCommand>Add new</button>
+  </ng-template>
+  <kendo-grid-column
+    field="ProductName"
+    title="Product Name"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="UnitPrice"
+    title="Unit Price"
+    filter="numeric"
+    editor="numeric"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="UnitsInStock"
+    title="Units In Stock"
+    filter="numeric"
+    editor="numeric"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="Discontinued"
+    filter="boolean"
+    editor="boolean"
+  ></kendo-grid-column>
+  <kendo-grid-command-column title="Command">
+    <ng-template kendoGridCellTemplate let-isNew="isNew">
+      <button kendoGridEditCommand>Edit</button>
+      <button kendoGridRemoveCommand>Remove</button>
+      <button kendoGridSaveCommand [disabled]="!formGroup?.valid">
+        {{ isNew ? 'Add' : 'Update' }}
+      </button>
+      <button kendoGridCancelCommand>Cancel</button>
+    </ng-template>
+  </kendo-grid-command-column>
+</kendo-grid>
